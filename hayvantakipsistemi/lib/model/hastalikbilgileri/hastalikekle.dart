@@ -14,12 +14,13 @@ import 'package:table_calendar/table_calendar.dart';
 
 class HastalikEkleModal extends StatefulWidget {
   bool sayfayonlendir;
-  HastalikEkleModal({Key? key,required this.sayfayonlendir}) : super(key: key);
+  HastalikEkleModal({Key? key, required this.sayfayonlendir}) : super(key: key);
 
   @override
   State<HastalikEkleModal> createState() => _HastalikEkleModalState();
 }
 
+bool _textfieldkontrol = false;
 FirebaseAuth _auth = FirebaseAuth.instance;
 CalendarFormat _format = CalendarFormat.month;
 DateTime _selectedDay = DateTime.now();
@@ -40,8 +41,6 @@ var maskFormatter = MaskTextInputFormatter(
     type: MaskAutoCompletionType.lazy);
 
 class _HastalikEkleModalState extends State<HastalikEkleModal> {
-  
-  
   List<String> _hayvanIdleri = [];
   @override
   void dispose() {
@@ -51,16 +50,16 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
 
   @override
   initState() {
-  _hayvanlarkupeno = [];
- _hayvanIdleri = [];
+    _hayvanlarkupeno = [];
+    _hayvanIdleri = [];
     _readTumHayvanlar();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop:()async{
-       return true;
+      onWillPop: () async {
+        return true;
       },
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -78,23 +77,30 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    createHastalik(
-                      hastaliknot: _hastaliknot.text,
-                      hayvaninkupeno: _hayvankupenocontroller.text,
-                      hastalikismi: _hastalikismicontroller.text,
-                      hastalikbaslangic: DateFormat(_dateFormat)
-                          .parse(_hastalikbaslangiccontroller.text),
-                      hastalikbitis: DateFormat(_dateFormat)
-                          .parse(_hastalikbitiscontroller.text),
-                    );
-                    if(widget.sayfayonlendir==true){
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => HastalikSayfasi()),).then((res) => RefreshHastalik());
+                    textFieldKontrol();
+                    if (_textfieldkontrol == true) {
+                      createHastalik(
+                        hastaliknot: _hastaliknot.text,
+                        hayvaninkupeno: _hayvankupenocontroller.text,
+                        hastalikismi: _hastalikismicontroller.text,
+                        hastalikbaslangic: DateFormat(_dateFormat)
+                            .parse(_hastalikbaslangiccontroller.text),
+                        hastalikbitis: DateFormat(_dateFormat)
+                            .parse(_hastalikbitiscontroller.text),
+                      );
+                      
+                      if (widget.sayfayonlendir == true) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HastalikSayfasi()),
+                        ).then((res) => RefreshHastalik());
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    } else {
+                      _startTimer("Boş Alan Bırakmayınız");
                     }
-                    else{
-                      Navigator.pop(context);
-                    }
-  
-                   
                   },
                   child: Text(
                     "Hastalığı Ekle",
@@ -290,8 +296,8 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
                                     },
                                     calendarStyle: CalendarStyle(
                                         todayDecoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(255, 123, 203, 198),
+                                          color: Color.fromARGB(
+                                              255, 123, 203, 198),
                                           shape: BoxShape.circle,
                                         ),
                                         isTodayHighlighted: true,
@@ -329,8 +335,8 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
                                     },
                                     startingDayOfWeek: StartingDayOfWeek.monday,
                                     daysOfWeekVisible: true,
-                                    onDaySelected:
-                                        (DateTime selectDay, DateTime focusDay) {
+                                    onDaySelected: (DateTime selectDay,
+                                        DateTime focusDay) {
                                       setState(() {
                                         _selectedDay = selectDay;
                                         _focusedDay = focusDay;
@@ -414,8 +420,8 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
                                     },
                                     calendarStyle: CalendarStyle(
                                         todayDecoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(255, 123, 203, 198),
+                                          color: Color.fromARGB(
+                                              255, 123, 203, 198),
                                           shape: BoxShape.circle,
                                         ),
                                         isTodayHighlighted: true,
@@ -453,8 +459,8 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
                                     },
                                     startingDayOfWeek: StartingDayOfWeek.monday,
                                     daysOfWeekVisible: true,
-                                    onDaySelected:
-                                        (DateTime selectDay, DateTime focusDay) {
+                                    onDaySelected: (DateTime selectDay,
+                                        DateTime focusDay) {
                                       setState(() {
                                         _selectedDay = selectDay;
                                         _focusedDay = focusDay;
@@ -573,6 +579,7 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
       }
     }
   }
+
   List<String> _hayvanlarkupeno = [];
   Future<List<dynamic>> _readTumHayvanlar() async {
     Query<Map<String, dynamic>> sorgu = FirebaseFirestore.instance
@@ -661,4 +668,17 @@ class _HastalikEkleModalState extends State<HastalikEkleModal> {
       },
     );
   }
+
+  void textFieldKontrol() {
+    if (_hayvankupenocontroller.text.isEmpty ||
+        _hastalikismicontroller.text.isEmpty ||
+        _hastalikbaslangiccontroller.text.isEmpty ||
+        _hastalikbitiscontroller.text.isEmpty) {
+      _textfieldkontrol = false;
+    } else {
+      _textfieldkontrol = true;
+    }
+  }
+
+
 }

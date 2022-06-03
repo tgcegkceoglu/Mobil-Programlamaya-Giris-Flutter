@@ -123,7 +123,7 @@ class _HomePagesState extends State<HomePages> {
                     baslik: "Tohumlama Ekle",
                     icon:  FaIcon(FontAwesomeIcons.seedling, color: Color(0xFF375BA3)),
                     sayfaismi: "Tohumlama Ekle",
-                    sayfa: TohumalamaEkleModal()),
+                    sayfa: TohumalamaEkleModal(sayfayonlendir: false,)),
               ],
             ),
             SizedBox(
