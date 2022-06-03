@@ -332,6 +332,45 @@ class _TohumalamaEkleModalState extends State<TohumalamaEkleModal> {
               controller: _tohumlamabitiscontroller,
               focusedDay: focusedDay,
               selectedDay: selectedDay),
+          SizedBox(
+            height: 8,
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                width: 1,
+                color: Color(0xFF375BA3),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 5,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: TextField(
+                cursorColor: Color(0xFF375BA3),
+                maxLines: 5,
+                controller: _tohumlamanotcontroller,
+                decoration: const InputDecoration(
+                    labelStyle: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    labelText: "Eklemek İstediğiniz Not",
+                    alignLabelWithHint: true),
+              ),
+            ),
+          ),
         ],
       ),
     );

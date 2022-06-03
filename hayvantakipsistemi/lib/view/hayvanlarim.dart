@@ -321,33 +321,7 @@ class _HayvanlarimState extends State<Hayvanlarim> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.keyboard_double_arrow_right,
-                          color: Color(0xFF2EFFF1),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Bilgileri Görüntüle",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          style: TextButton.styleFrom(
-                            minimumSize: Size.zero,
-                            padding: EdgeInsets.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                        ),
-                        Icon(
-                          Icons.keyboard_double_arrow_left,
-                          color: Color(0xFF2EFFF1),
-                        ),
-                      ],
-                    ),
+                    
                   ]),
             ),
           ],

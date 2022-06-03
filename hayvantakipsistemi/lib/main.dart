@@ -1,13 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hayvantakipsistemi/HomePage.dart';
 import 'package:hayvantakipsistemi/girissayfasi/LoginPage.dart';
 import 'package:hayvantakipsistemi/girissayfasi/splashscreen.dart';
 import 'package:hayvantakipsistemi/view/asilamasayfasi.dart';
 import 'package:hayvantakipsistemi/view/hastaliksayfasi.dart';
 import 'package:hayvantakipsistemi/view/hayvanekle.dart';
 import 'package:hayvantakipsistemi/view/hayvanlarim.dart';
-import 'package:hayvantakipsistemi/view/homepagee.dart';
+import 'package:hayvantakipsistemi/girissayfasi/HomePage.dart';
 import 'package:hayvantakipsistemi/view/tohumlamasayfasi.dart';
 import 'package:intl/date_symbol_data_local.dart';
 

@@ -29,6 +29,7 @@ class _HomePagesState extends State<HomePages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -45,6 +46,15 @@ class _HomePagesState extends State<HomePages> {
                       fontSize: 24,
                       fontWeight: FontWeight.w600)),
               Spacer(),
+              IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: Color(0xFF375BA3),
+                    size: 26,
+                  ),
+                  onPressed: () => showInfo(context)),
               IconButton(
                   onPressed: () {
                     _cikisYap(context);
@@ -66,7 +76,7 @@ class _HomePagesState extends State<HomePages> {
               children: [
                 Icon(
                   Icons.star,
-                  color: Colors.yellow,
+                  color: Color(0xFF375BA3),
                 ),
                 SizedBox(
                   width: 5,
@@ -114,16 +124,21 @@ class _HomePagesState extends State<HomePages> {
                 buildcontainericon(
                     context: context,
                     baslik: "Aşılama Ekle",
-                    icon:  FaIcon(FontAwesomeIcons.syringe,
+                    icon: FaIcon(FontAwesomeIcons.syringe,
                         color: Color(0xFF375BA3)),
                     sayfaismi: "Aşılama Ekle",
-                    sayfa: Asilama(sayfayonlendir: false,)),
-                 buildcontainericon(
+                    sayfa: Asilama(
+                      sayfayonlendir: false,
+                    )),
+                buildcontainericon(
                     context: context,
                     baslik: "Tohumlama Ekle",
-                    icon:  FaIcon(FontAwesomeIcons.seedling, color: Color(0xFF375BA3)),
+                    icon: FaIcon(FontAwesomeIcons.seedling,
+                        color: Color(0xFF375BA3)),
                     sayfaismi: "Tohumlama Ekle",
-                    sayfa: TohumalamaEkleModal(sayfayonlendir: false,)),
+                    sayfa: TohumalamaEkleModal(
+                      sayfayonlendir: false,
+                    )),
               ],
             ),
             SizedBox(
@@ -133,7 +148,7 @@ class _HomePagesState extends State<HomePages> {
               children: [
                 Icon(
                   Icons.library_books_sharp,
-                  color: Colors.yellow,
+                  color: Color(0xFF375BA3),
                 ),
                 SizedBox(
                   width: 5,
@@ -368,7 +383,7 @@ buildcontainericon(
                 width: 10,
               ),
               Expanded(
-                flex:4,
+                flex: 4,
                 child: Text(
                   baslik,
                   style: TextStyle(
@@ -400,4 +415,67 @@ Future _hayvanvarSorgula() async {
   } else {
     _hayvanvar = false;
   }
+}
+
+
+showInfo(BuildContext context) {
+  return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          
+          title: const Text('Hakkımda',style: TextStyle(color: Color(0xFF375BA3) , fontWeight: FontWeight.bold),),
+          content: Container(
+            height: MediaQuery.of(context).size.height/6,
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Text("Adı - Soyadı",style: TextStyle(color: Color(0xFF375BA3) , fontWeight: FontWeight.bold),),
+                      SizedBox(width: 5,),
+                      Text("Tuğçe Gökçeoğlu"),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5,),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Text("Okul - Numarası",style: TextStyle(color: Color(0xFF375BA3) , fontWeight: FontWeight.bold),),
+                      SizedBox(width: 5,),
+                      Text("1911404019"),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 5,),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Text("Email",style: TextStyle(color: Color(0xFF375BA3) , fontWeight: FontWeight.bold),),
+                      SizedBox(width: 5,),
+                      Text("tgcegkceoglu4@gmail.com"),
+                    ],
+                  ),
+                ),
+              ],
+                    ),
+            ),
+          ),
+          actions: <Widget>[
+
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Tamam',style: TextStyle(color: Color(0xFF375BA3) , fontWeight: FontWeight.bold),),
+            ),
+          ],
+        ),
+      );
 }
